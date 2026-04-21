@@ -26,24 +26,24 @@ export async function getDb(): Promise<DbInterface> {
     
     dbInstance = {
       all: async (query: string, params: any[] = []) => {
-        // Convert ? to $1, $2, etc for Postgres
         let i = 1;
         const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        return await sql(pgQuery, params);
+        // Use any cast to satisfy the Neon type system for dynamic strings
+        return await (sql as any)(pgQuery, params);
       },
       get: async (query: string, params: any[] = []) => {
         let i = 1;
         const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        const results = await sql(pgQuery, params);
+        const results = await (sql as any)(pgQuery, params);
         return results[0] || null;
       },
       run: async (query: string, params: any[] = []) => {
         let i = 1;
         const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        await sql(pgQuery, params);
+        await (sql as any)(pgQuery, params);
       },
       exec: async (query: string) => {
-        await sql(query);
+        await (sql as any)(query);
       }
     };
 
