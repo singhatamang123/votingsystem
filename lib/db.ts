@@ -1,8 +1,6 @@
 // lib/db.ts
 
 import { neon } from '@neondatabase/serverless';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
 import path from 'path';
 
 const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
@@ -30,21 +28,22 @@ export async function getDb(): Promise<DbInterface> {
         all: async (query: string, params: any[] = []) => {
           let i = 1;
           const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-          return await (sql as any)(pgQuery, params);
+          // Using sql.query as required by the latest Neon driver
+          return await (sql as any).query(pgQuery, params);
         },
         get: async (query: string, params: any[] = []) => {
           let i = 1;
           const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-          const results = await (sql as any)(pgQuery, params);
+          const results = await (sql as any).query(pgQuery, params);
           return results[0] || null;
         },
         run: async (query: string, params: any[] = []) => {
           let i = 1;
           const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-          await (sql as any)(pgQuery, params);
+          await (sql as any).query(pgQuery, params);
         },
         exec: async (query: string) => {
-          await (sql as any)(query);
+          await (sql as any).query(query);
         }
       };
 
