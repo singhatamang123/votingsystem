@@ -1,0 +1,117 @@
+/* components/CandidateCard.module.css */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--bg-primary);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  min-height: 280px;
+  justify-content: space-between;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--text-secondary);
+  transform: translateY(-4px);
+}
+
+.symbolContainer {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.symbol {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.content {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.role {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.votes {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.voteButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: var(--text-primary);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.voteButton:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.voteButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.voteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.voteButton.voted {
+  background-color: var(--house-green);
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .symbolContainer {
+    width: 70px;
+    height: 70px;
+  }
+
+  .symbol {
+    font-size: 2rem;
+  }
+
+  .name {
+    font-size: 0.95rem;
+  }
+}
