@@ -19,7 +19,7 @@ export async function getDb(): Promise<DbInterface> {
   if (dbInstance) return dbInstance;
 
   if (isPostgres) {
-    // Postgres (Neon) implementation
+    console.log('🔌 Connecting to Cloud Postgres (Neon)...');
     const sql = neon(process.env.DATABASE_URL!);
     
     dbInstance = {
@@ -55,6 +55,12 @@ export async function getDb(): Promise<DbInterface> {
       )
     `);
   } else {
+    // If we are on Vercel but missing DATABASE_URL, this is an error
+    if (process.env.VERCEL) {
+      throw new Error('❌ Missing DATABASE_URL environment variable on Vercel. Please connect your database in the Vercel dashboard.');
+    }
+
+    console.log('📁 Using local SQLite database...');
     // Dynamic import for SQLite to avoid Vercel build errors
     const sqlite3 = await import('sqlite3');
     const { open } = await import('sqlite');
