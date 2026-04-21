@@ -1,8 +1,6 @@
 // lib/db.ts
 
 import { neon } from '@neondatabase/serverless';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
 import path from 'path';
 
 const isPostgres = !!process.env.DATABASE_URL;
@@ -28,7 +26,6 @@ export async function getDb(): Promise<DbInterface> {
       all: async (query: string, params: any[] = []) => {
         let i = 1;
         const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        // Use any cast to satisfy the Neon type system for dynamic strings
         return await (sql as any)(pgQuery, params);
       },
       get: async (query: string, params: any[] = []) => {
@@ -58,10 +55,14 @@ export async function getDb(): Promise<DbInterface> {
       )
     `);
   } else {
+    // Dynamic import for SQLite to avoid Vercel build errors
+    const sqlite3 = await import('sqlite3');
+    const { open } = await import('sqlite');
+
     // SQLite implementation
     const sqliteDb = await open({
       filename: path.join(process.cwd(), 'voting.db'),
-      driver: sqlite3.Database,
+      driver: sqlite3.default.Database,
     });
 
     dbInstance = {
