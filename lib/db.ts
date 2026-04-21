@@ -1,9 +1,12 @@
 // lib/db.ts
 
 import { neon } from '@neondatabase/serverless';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 import path from 'path';
 
-const isPostgres = !!process.env.DATABASE_URL;
+const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+const isPostgres = !!dbUrl;
 
 // Unified database interface
 export interface DbInterface {
@@ -20,44 +23,50 @@ export async function getDb(): Promise<DbInterface> {
 
   if (isPostgres) {
     console.log('🔌 Connecting to Cloud Postgres (Neon)...');
-    const sql = neon(process.env.DATABASE_URL!);
-    
-    dbInstance = {
-      all: async (query: string, params: any[] = []) => {
-        let i = 1;
-        const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        return await (sql as any)(pgQuery, params);
-      },
-      get: async (query: string, params: any[] = []) => {
-        let i = 1;
-        const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        const results = await (sql as any)(pgQuery, params);
-        return results[0] || null;
-      },
-      run: async (query: string, params: any[] = []) => {
-        let i = 1;
-        const pgQuery = query.replace(/\?/g, () => `$${i++}`);
-        await (sql as any)(pgQuery, params);
-      },
-      exec: async (query: string) => {
-        await (sql as any)(query);
-      }
-    };
+    try {
+      const sql = neon(dbUrl!);
+      
+      dbInstance = {
+        all: async (query: string, params: any[] = []) => {
+          let i = 1;
+          const pgQuery = query.replace(/\?/g, () => `$${i++}`);
+          return await (sql as any)(pgQuery, params);
+        },
+        get: async (query: string, params: any[] = []) => {
+          let i = 1;
+          const pgQuery = query.replace(/\?/g, () => `$${i++}`);
+          const results = await (sql as any)(pgQuery, params);
+          return results[0] || null;
+        },
+        run: async (query: string, params: any[] = []) => {
+          let i = 1;
+          const pgQuery = query.replace(/\?/g, () => `$${i++}`);
+          await (sql as any)(pgQuery, params);
+        },
+        exec: async (query: string) => {
+          await (sql as any)(query);
+        }
+      };
 
-    // Initialize Postgres table
-    await dbInstance.exec(`
-      CREATE TABLE IF NOT EXISTS votes (
-        voter_id TEXT NOT NULL,
-        candidate_id TEXT NOT NULL,
-        category TEXT NOT NULL,
-        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (voter_id, category)
-      )
-    `);
+      // Initialize Postgres table
+      await dbInstance.exec(`
+        CREATE TABLE IF NOT EXISTS votes (
+          voter_id TEXT NOT NULL,
+          candidate_id TEXT NOT NULL,
+          category TEXT NOT NULL,
+          timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (voter_id, category)
+        )
+      `);
+      console.log('✅ Postgres initialized successfully');
+    } catch (err: any) {
+      console.error('❌ Postgres connection error:', err.message);
+      throw err;
+    }
   } else {
     // If we are on Vercel but missing DATABASE_URL, this is an error
     if (process.env.VERCEL) {
-      throw new Error('❌ Missing DATABASE_URL environment variable on Vercel. Please connect your database in the Vercel dashboard.');
+      throw new Error('❌ Missing DATABASE_URL or POSTGRES_URL environment variable on Vercel.');
     }
 
     console.log('📁 Using local SQLite database...');
