@@ -5,7 +5,7 @@ import { Candidate } from './types';
 export const CANDIDATES: Candidate[] = [
 
   // ─── SCHOOL PREFECT (2 candidates) ───────────────────────────
-  { id: 'sp-1', name: 'Riya Lama',     house: 'Yellow', role: 'school_prefect',      symbol: '🌐', photo: '/candidates/Globe.png' },
+  { id: 'sp-1', name: 'Riya Lama',     house: 'Yellow', role: 'school_prefect',      symbol: '🌐', photo: '/candidates/globe.png' },
   { id: 'sp-2', name: 'Roshni Tamang', house: 'Green',  role: 'school_prefect',      symbol: '📚', photo: '/candidates/Book.png' },
 
   // ─── SCHOOL VICE PREFECT (2 candidates) ─────────────────────
