@@ -3,6 +3,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Candidate, Role } from '@/lib/types';
 import styles from './CandidateCard.module.css';
 
@@ -30,9 +31,20 @@ export function CandidateCard({
   onVote,
 }: CandidateCardProps) {
   return (
-    <div className={styles.card}>
-      <div className={styles.symbolContainer}>
-        <span className={styles.symbol}>{candidate.symbol}</span>
+    <div className={`${styles.card} ${isVoted ? styles.votedCard : ''}`}>
+      <div className={styles.avatarContainer}>
+        {candidate.photo ? (
+          <Image
+            src={encodeURI(candidate.photo)}
+            alt={candidate.name}
+            width={160}
+            height={160}
+            className={styles.photo}
+          />
+        ) : (
+          <span className={styles.symbol}>{candidate.symbol}</span>
+        )}
+        {isVoted && <div className={styles.votedOverlay}>✓</div>}
       </div>
 
       <div className={styles.content}>
@@ -46,7 +58,7 @@ export function CandidateCard({
         disabled={isVoted || isLoading}
         title={isVoted ? 'You have already voted' : `Vote for ${candidate.name}`}
       >
-        {isVoted ? '✓ Voted' : 'Vote'}
+        {isVoted ? '✓ Voted' : isLoading ? '...' : 'Vote'}
       </button>
     </div>
   );

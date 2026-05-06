@@ -8,7 +8,8 @@ export interface Candidate {
   name: string;
   house: House;
   role: Role;
-  symbol: string; // emoji or image path
+  symbol: string; // emoji fallback if no photo
+  photo?: string; // optional: e.g. '/candidates/aisha-patel.jpg'
 }
 
 export type VoteCategory = 'school_prefect' | 'school_vice_prefect' | 'house_captain' | 'house_vice_captain';

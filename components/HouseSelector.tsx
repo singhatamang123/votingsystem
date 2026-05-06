@@ -3,6 +3,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { House } from '@/lib/types';
 import styles from './HouseSelector.module.css';
 
@@ -16,8 +17,17 @@ export function HouseSelector({ onSelect }: HouseSelectorProps) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2 className={styles.title}>🏠 Welcome to Elections</h2>
-        <p className={styles.subtitle}>Please select your House to continue</p>
+        <div className={styles.logoWrapper}>
+          <Image 
+            src="/candidates/Alchemist PNG.png" 
+            alt="Alchemist Academy Logo" 
+            width={100} 
+            height={100} 
+            className={styles.logo}
+          />
+        </div>
+        <h2 className={styles.title}>Alchemist Academy</h2>
+        <p className={styles.subtitle}>Please select your House to begin voting</p>
         
         <div className={styles.grid}>
           {houses.map(house => (
@@ -32,7 +42,7 @@ export function HouseSelector({ onSelect }: HouseSelectorProps) {
         </div>
         
         <p className={styles.note}>
-          Note: You can only vote for candidates in your own house for House Representation.
+          Select your official house. You can only vote for candidates within your own house for Captain and Vice Captain roles.
         </p>
       </div>
     </div>

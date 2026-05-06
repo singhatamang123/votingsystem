@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { CANDIDATES, groupCandidatesByHouse } from '@/lib/candidates';
 import { useVoting } from '@/lib/useVoting';
 import { HouseSection } from '@/components/HouseSection';
@@ -41,7 +42,7 @@ export default function Home() {
             <div className={styles.successIcon}>✓</div>
             <h1 className={styles.thankYouTitle}>Thank You for Voting!</h1>
             <p className={styles.thankYouText}>
-              Your 4 votes have been successfully recorded in the system.
+              Your 4 votes have been successfully recorded in the Alchemist Academy system.
             </p>
             <div className={styles.divider}></div>
             <p className={styles.nextStudentNote}>
@@ -59,8 +60,17 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <header className={styles.header}>
+        <div className={styles.logoContainer}>
+          <Image 
+            src="/candidates/Alchemist PNG.png" 
+            alt="Alchemist Academy Logo" 
+            width={80} 
+            height={80} 
+            className={styles.logo}
+          />
+        </div>
         <div className={styles.headerContent}>
-          <h1 className={styles.heading}>🏛️ School House Elections</h1>
+          <h1 className={styles.heading}>Alchemist Academy House Elections</h1>
           <p className={styles.subtitle}>
             Welcome, <strong>{voterHouse} House</strong> student. You have {4 - totalVotesCast} {4 - totalVotesCast === 1 ? 'vote' : 'votes'} remaining.
           </p>
@@ -69,44 +79,58 @@ export default function Home() {
 
       {!isLoading ? (
         <div className={styles.container}>
-          {/* School Wide Section */}
+          {/* School Wide Section - Refactored to match House Section Style */}
           <div className={styles.schoolSection}>
-            <h2 className={styles.sectionTitle}>🎓 School Representatives</h2>
-
-            <div className={styles.schoolSubSection}>
-              <h3 className={styles.subTitle}>School Prefect</h3>
-              <div className={styles.candidateGrid}>
-                {schoolPrefects.map(candidate => (
-                  <CandidateCard
-                    key={candidate.id}
-                    candidate={candidate}
-                    isVoted={votedIds.school_prefect === candidate.id}
-                    isLoading={isLoading || isSubmitting || !!votedIds.school_prefect}
-                    onVote={(id) => handleVote(id, 'school_prefect')}
-                  />
-                ))}
+            <div className={styles.schoolHeader}>
+              <div className={styles.schoolBadge}>
+                <h2 className={styles.sectionTitle}>🎓 School Representatives</h2>
               </div>
             </div>
 
-            <div className={styles.schoolSubSection}>
-              <h3 className={styles.subTitle}>School Vice Prefect</h3>
-              <div className={styles.candidateGrid}>
-                {schoolVicePrefects.map(candidate => (
-                  <CandidateCard
-                    key={candidate.id}
-                    candidate={candidate}
-                    isVoted={votedIds.school_vice_prefect === candidate.id}
-                    isLoading={isLoading || isSubmitting || !!votedIds.school_vice_prefect}
-                    onVote={(id) => handleVote(id, 'school_vice_prefect')}
-                  />
-                ))}
+            <div className={styles.schoolRolesContainer}>
+              <div className={styles.schoolSubSection}>
+                <div className={styles.roleHeader}>
+                  <h3 className={styles.subTitle}>School Prefect</h3>
+                  {votedIds.school_prefect && <span className={styles.check}>✓ Cast</span>}
+                </div>
+                <div className={styles.candidateGrid}>
+                  {schoolPrefects.map(candidate => (
+                    <CandidateCard
+                      key={candidate.id}
+                      candidate={candidate}
+                      isVoted={votedIds.school_prefect === candidate.id}
+                      isLoading={isLoading || isSubmitting || !!votedIds.school_prefect}
+                      onVote={(id) => handleVote(id, 'school_prefect')}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.schoolSubSection}>
+                <div className={styles.roleHeader}>
+                  <h3 className={styles.subTitle}>School Vice Prefect</h3>
+                  {votedIds.school_vice_prefect && <span className={styles.check}>✓ Cast</span>}
+                </div>
+                <div className={styles.candidateGrid}>
+                  {schoolVicePrefects.map(candidate => (
+                    <CandidateCard
+                      key={candidate.id}
+                      candidate={candidate}
+                      isVoted={votedIds.school_vice_prefect === candidate.id}
+                      isLoading={isLoading || isSubmitting || !!votedIds.school_vice_prefect}
+                      onVote={(id) => handleVote(id, 'school_vice_prefect')}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
           <div className={styles.divider}></div>
-          <h2 className={styles.sectionTitle}>🏠 House Representatives</h2>
-          <p className={styles.sectionNote}>You can only vote for candidates in your own house ({voterHouse}).</p>
+          <div className={styles.houseSectionHeader}>
+            <h2 className={styles.sectionTitle}>🏠 House Representatives</h2>
+            <p className={styles.sectionNote}>You can only vote for candidates in your own house ({voterHouse}).</p>
+          </div>
 
           {candidateGroups
             .filter(group => group.house === voterHouse)
@@ -131,10 +155,7 @@ export default function Home() {
       )}
 
       <footer className={styles.footer}>
-        <p>© 2025 School House Elections. SQLite Secure Storage Active.</p>
-        <div className={styles.footerLinks}>
-          {voterId && <small className={styles.voterId}>Voter ID: {voterId.substring(0, 8)}... | House: {voterHouse}</small>}
-        </div>
+        <p>Developed by Singha Tamang</p>
       </footer>
     </main>
   );

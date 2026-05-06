@@ -2,320 +2,330 @@
 
 .main {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  color: white;
-  padding: 3rem 1rem;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 4rem;
-  animation: fadeInDown 0.8s ease-out;
-}
-
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.title {
-  font-size: 3.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-  font-size: 1.25rem;
-  color: #94a3b8;
-}
-
-.hallOfFame {
+  background: #f8fafc;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  align-items: center;
 }
 
-.categoryTitle {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: #e2e8f0;
+.reportSheet {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  padding: 4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.reportHeader {
+  border-bottom: 2px solid #1e293b;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.headerTop {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.majorCategory {
-  margin-bottom: 4rem;
-}
-
-.houseGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-}
-
-.houseSection {
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 32px;
-}
-
-.houseTitle {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.yellowText { color: var(--house-yellow); }
-.greenText { color: var(--house-green); }
-.blueText { color: var(--house-blue); }
-.redText { color: var(--house-red); }
-
-.winnerGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 3rem;
-}
-
-.winnerItem {
-  display: flex;
-  flex-direction: column;
   gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.chartContainer {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 1.5rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.schoolName {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.chartWrapper {
-  width: 100%;
-}
-
-.chartTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #94a3b8;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.noData {
-  font-size: 0.85rem;
+.schoolLocation {
+  font-size: 1.1rem;
   color: #64748b;
-  text-align: center;
-  padding: 2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.reportTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.reportTitle {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: 0.05em;
 }
 
 .timestamp {
-  margin-top: 2rem;
-  font-size: 0.8rem;
-  color: #475569;
+  font-size: 0.85rem;
+  color: #64748b;
 }
 
-@media print {
-  .chartContainer {
-    border: 1px solid #ddd !important;
-    background: white !important;
-    page-break-inside: avoid;
-  }
-  
-  .chartTitle {
-    color: black !important;
-  }
+.section {
+  margin-bottom: 3rem;
 }
 
-.winnerCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 2.5rem 1.5rem;
+.sectionHeading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+  background: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-left: 5px solid #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.tableWrapper {
+  margin-bottom: 2rem;
+}
+
+.categoryTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.25rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.table th {
+  background: #f8fafc;
+  text-align: left;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.countCol {
+  text-align: center;
+  width: 120px;
+}
+
+.winnerRow {
+  background: #f0fdf4;
+}
+
+.winnerBadge {
+  background: #10b981;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  font-weight: 700;
+}
+
+.photoCol {
+  width: 80px;
+  text-align: center;
+}
+
+.symbolCell {
+  text-align: center;
+  padding: 0.5rem !important;
+}
+
+.candidatePhotoWrapper {
+  width: 45px;
+  height: 45px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #e2e8f0;
+}
+
+.candidatePhoto {
+  object-fit: cover;
+}
+
+.emojiSymbol {
+  font-size: 1.5rem;
+}
+
+.candidateName {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.houseBlock {
+  margin-bottom: 2.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  break-inside: avoid;
+  break-before: page;
+  margin-top: 30mm; /* Pushes the house block down from the top of the page */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  min-height: 200mm; /* Ensures the card fills enough space to look professional */
 }
 
-.winnerCard:hover {
-  transform: translateY(-10px);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.cardHeader {
-  font-size: 0.8rem;
+.houseTitle {
+  padding: 0.75rem 1rem;
+  margin: 0;
+  color: white;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #94a3b8;
-  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
-.symbol {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-}
+.yellow { background: var(--house-yellow); }
+.green { background: var(--house-green); }
+.blue { background: var(--house-blue); }
+.red { background: var(--house-red); }
 
-.winnerName {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  color: white;
-}
-
-.winnerRole {
-  font-size: 0.85rem;
-  color: #94a3b8;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-.voteBadge {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fbbf24;
-}
-
-/* Variant styles */
-.gold { border: 2px solid #fbbf24; box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
-.silver { border: 2px solid #94a3b8; box-shadow: 0 0 30px rgba(148, 163, 184, 0.2); }
-.yellow { border-bottom: 6px solid var(--house-yellow); }
-.green { border-bottom: 6px solid var(--house-green); }
-.blue { border-bottom: 6px solid var(--house-blue); }
-.red { border-bottom: 6px solid var(--house-red); }
-
-.divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-}
-
-.footer {
-  margin-top: 5rem;
-  text-align: center;
-}
-
-.footerButtons {
+.houseGrids {
+  padding: 1.5rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.backButton, .printButton {
-  padding: 1rem 2.5rem;
-  border-radius: 999px;
+.roleTitle {
+  font-size: 0.95rem;
   font-weight: 700;
-  border: none;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.reportFooterInner {
+  margin-top: auto; /* Pushes the signature to the very bottom of the card */
+  padding: 2rem;
+  border-top: 2px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.signatureSection {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.sigBox {
+  width: 200px;
+  text-align: center;
+}
+
+.sigLine {
+  border-top: 1px solid #334155;
+  margin-bottom: 0.5rem;
+}
+
+.sigBox p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  margin: 0;
+}
+
+.devNote {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 2rem;
+}
+
+.controls {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  position: sticky;
+  bottom: 2rem;
+}
+
+.backButton, .printButton {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
   cursor: pointer;
+  border: none;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .backButton {
   background: white;
-  color: #0f172a;
+  color: #1e293b;
 }
 
 .printButton {
-  background: #fbbf24;
-  color: #0f172a;
-}
-
-.backButton:hover, .printButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-}
-
-.loading {
-  height: 100vh;
-  background: #0f172a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: #1e293b;
   color: white;
 }
 
+.printButton:hover {
+  transform: translateY(-2px);
+  background: #0f172a;
+}
+
+.loading {
+  padding: 4rem;
+  text-align: center;
+}
+
 .spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top: 4px solid #fbbf24;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-top: 3px solid #1e293b;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
+}
+
+@page {
+  margin: 0;
 }
 
 @media print {
+  body {
+    padding: 25mm 20mm; /* Increased top padding to push content down */
+    background: white;
+  }
+  
   .main {
-    background: white !important;
-    color: black !important;
-    padding: 0 !important;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .reportSheet {
+    box-shadow: none;
+    border: none;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .controls {
+    display: none !important; /* Force hide the buttons */
   }
 
-  .backButton, .printButton {
-    display: none !important;
+  .sectionHeading, .houseTitle, .winnerRow, .table th, .winnerBadge, .reportFooterInner {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-
-  .title {
-    -webkit-text-fill-color: black !important;
-    font-size: 2.5rem !important;
-    margin-top: 0 !important;
-  }
-
-  .winnerCard {
-    break-inside: avoid;
-    border: 1px solid #ccc !important;
-    background: white !important;
-    box-shadow: none !important;
-    color: black !important;
-  }
-
-  .winnerName, .cardHeader, .winnerRole, .categoryTitle, .houseTitle {
-    color: black !important;
-  }
-
-  .voteBadge {
-    border: 1px solid #000;
-    color: black !important;
-  }
-
-  .hallOfFame {
-    gap: 2rem !important;
-  }
-
-  .houseSection {
-    background: none !important;
-    padding: 1rem !important;
-    border: 1px solid #eee;
-  }
-}
-
-@media (max-width: 768px) {
-  .title { font-size: 2.5rem; }
-  .winnerGrid { grid-template-columns: 1fr; }
 }

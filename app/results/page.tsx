@@ -3,13 +3,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid 
-} from 'recharts';
+import Image from 'next/image';
 import styles from './results.module.css';
-
-const CHART_COLORS = ['#fbbf24', '#6366f1', '#10b981', '#ef4444', '#8b5cf6', '#ec4899'];
 
 export default function ResultsPage() {
   const [data, setData] = useState<any>(null);
@@ -34,10 +29,16 @@ export default function ResultsPage() {
     window.print();
   };
 
+  const handleBack = () => {
+    localStorage.removeItem('school_voting_voter_id');
+    localStorage.removeItem('school_voting_house');
+    window.location.href = '/';
+  };
+
   if (loading) return (
     <div className={styles.loading}>
       <div className={styles.spinner}></div>
-      <p>Calculating official results...</p>
+      <p>Generating Official Report...</p>
     </div>
   );
 
@@ -45,143 +46,143 @@ export default function ResultsPage() {
 
   const { winners, allResults } = data;
 
-  const getChartData = (role: string, house?: string) => {
+  const getResultsByRole = (role: string, house?: string) => {
     return allResults
       .filter((c: any) => c.role === role && (!house || c.house === house))
-      .map((c: any) => ({
-        name: c.name,
-        value: c.voteCount
-      }))
-      .filter((c: any) => c.value > 0);
-  };
-
-  const handleBack = () => {
-    localStorage.removeItem('school_voting_voter_id');
-    localStorage.removeItem('school_voting_house');
-    window.location.href = '/';
+      .sort((a: any, b: any) => b.voteCount - a.voteCount);
   };
 
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>🏆 Election Results 2025</h1>
-          <p className={styles.subtitle}>Official Proclamation of the Student Government Representatives</p>
-        </header>
-
-        <section className={styles.hallOfFame}>
-          {/* School Wide Winners */}
-          <div className={styles.majorCategory}>
-            <h2 className={styles.categoryTitle}>🎓 School-Wide Representatives</h2>
-            <div className={styles.winnerGrid}>
-              <div className={styles.winnerItem}>
-                <WinnerCard label="School Prefect" candidate={winners.school_prefect} variant="gold" />
-                <div className={styles.chartContainer}>
-                  <ResultsChart data={getChartData('school_prefect')} title="Prefect Vote Distribution" />
-                </div>
-              </div>
-              <div className={styles.winnerItem}>
-                <WinnerCard label="School Vice Prefect" candidate={winners.school_vice_prefect} variant="silver" />
-                <div className={styles.chartContainer}>
-                  <ResultsChart data={getChartData('school_vice_prefect')} title="Vice Prefect Vote Distribution" />
-                </div>
-              </div>
+      <div className={styles.reportSheet}>
+        {/* Print Header */}
+        <header className={styles.reportHeader}>
+          <div className={styles.headerTop}>
+            <Image 
+              src="/candidates/Alchemist PNG.png" 
+              alt="Alchemist Academy" 
+              width={60} 
+              height={60} 
+            />
+            <div className={styles.schoolInfo}>
+              <h1 className={styles.schoolName}>Alchemist Academy</h1>
+              <p className={styles.schoolLocation}>House Election 2026</p>
             </div>
           </div>
+          <div className={styles.reportTitleRow}>
+            <h2 className={styles.reportTitle}>OFFICIAL ELECTION RESULTS</h2>
+            <p className={styles.timestamp}>Generated on: {new Date().toLocaleString()}</p>
+          </div>
+        </header>
 
-          <div className={styles.divider}></div>
+        {/* 1. School Wide Results */}
+        <section className={styles.section}>
+          <h3 className={styles.sectionHeading}>🎓 School-Wide Representatives</h3>
+          
+          <div className={styles.tableWrapper}>
+            <h4 className={styles.categoryTitle}>School Prefect</h4>
+            <ResultTable candidates={getResultsByRole('school_prefect')} />
+          </div>
 
-          {/* House Winners */}
-          <div className={styles.majorCategory}>
-            <h2 className={styles.categoryTitle}>🏠 House Representatives</h2>
-            
-            <div className={styles.houseGroup}>
-              {['Yellow', 'Green', 'Blue', 'Red'].map(house => (
-                <div key={house} className={styles.houseSection}>
-                  <h3 className={`${styles.houseTitle} ${styles[house.toLowerCase() + 'Text']}`}>
-                    {house} House Results
-                  </h3>
-                  <div className={styles.winnerGrid}>
-                    <div className={styles.winnerItem}>
-                      <WinnerCard label="House Captain" candidate={winners.houses[house].captain} variant={house.toLowerCase()} />
-                      <div className={styles.chartContainer}>
-                        <ResultsChart data={getChartData('captain', house)} title="Captain Votes" small />
-                      </div>
-                    </div>
-                    <div className={styles.winnerItem}>
-                      <WinnerCard label="House Vice Captain" candidate={winners.houses[house].vice_captain} variant={house.toLowerCase()} />
-                      <div className={styles.chartContainer}>
-                        <ResultsChart data={getChartData('vice_captain', house)} title="Vice Captain Votes" small />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className={styles.tableWrapper}>
+            <h4 className={styles.categoryTitle}>School Vice Prefect</h4>
+            <ResultTable candidates={getResultsByRole('school_vice_prefect')} />
           </div>
         </section>
 
-        <footer className={styles.footer}>
-          <div className={styles.footerButtons}>
-            <button className={styles.backButton} onClick={handleBack}>
-              ← Back to Home
-            </button>
-            <button className={styles.printButton} onClick={handlePrint}>
-              🖨️ Print Official Report
-            </button>
-          </div>
-          <p className={styles.timestamp}>Report Generated: {new Date().toLocaleString()}</p>
-        </footer>
+        {/* 2. House Results */}
+        <section className={styles.section}>
+          <h3 className={styles.sectionHeading}>🏠 House Representatives</h3>
+          
+          {['Yellow', 'Green', 'Blue', 'Red'].map((house, index) => (
+            <div key={house} className={styles.houseBlock}>
+              <h4 className={`${styles.houseTitle} ${styles[house.toLowerCase()]}`}>
+                {house} House
+              </h4>
+              <div className={styles.houseGrids}>
+                <div className={styles.tableWrapper}>
+                  <h5 className={styles.roleTitle}>House Captain</h5>
+                  <ResultTable candidates={getResultsByRole('captain', house)} />
+                </div>
+                <div className={styles.tableWrapper}>
+                  <h5 className={styles.roleTitle}>House Vice Captain</h5>
+                  <ResultTable candidates={getResultsByRole('vice_captain', house)} />
+                </div>
+              </div>
+              
+              {/* Only show signature block after the last house (Red) */}
+              {house === 'Red' && (
+                <div className={styles.reportFooterInner}>
+                  <div className={styles.signatureSection}>
+                    <div className={styles.sigBox}>
+                      <div className={styles.sigLine}></div>
+                      <p>School Principal</p>
+                    </div>
+                  </div>
+                  <p className={styles.devNote}>Developed by Singha Tamang</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </section>
+      </div>
+
+      {/* Screen-only Controls */}
+      <div className={styles.controls}>
+        <button className={styles.backButton} onClick={handleBack}>
+          ← Back to Voting
+        </button>
+        <button className={styles.printButton} onClick={handlePrint}>
+          🖨️ Print Report (PDF)
+        </button>
       </div>
     </main>
   );
 }
 
-function ResultsChart({ data, title, small = false }: { data: any[], title: string, small?: boolean }) {
-  if (data.length === 0) return <p className={styles.noData}>No votes recorded for this category.</p>;
-
+function ResultTable({ candidates }: { candidates: any[] }) {
   return (
-    <div className={styles.chartWrapper}>
-      <h4 className={styles.chartTitle}>{title}</h4>
-      <ResponsiveContainer width="100%" height={small ? 200 : 250}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={small ? 40 : 60}
-            outerRadius={small ? 60 : 80}
-            paddingAngle={5}
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip 
-            contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: 'white' }}
-            itemStyle={{ color: 'white' }}
-          />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
-
-function WinnerCard({ label, candidate, variant }: { label: string, candidate: any, variant: string }) {
-  if (!candidate) return <div className={`${styles.winnerCard} ${styles[variant]}`}>No Candidate Selected</div>;
-
-  return (
-    <div className={`${styles.winnerCard} ${styles[variant]}`}>
-      <div className={styles.cardHeader}>{label}</div>
-      <div className={styles.symbol}>{candidate.symbol}</div>
-      <div className={styles.winnerInfo}>
-        <h3 className={styles.winnerName}>{candidate.name}</h3>
-        <div className={styles.voteBadge}>
-          {candidate.voteCount} Votes
-        </div>
-      </div>
-    </div>
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th className={styles.photoCol}>Symbol</th>
+          <th>Candidate Name</th>
+          <th>House</th>
+          <th className={styles.countCol}>Vote Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        {candidates.map((c, index) => (
+          <tr key={c.id} className={index === 0 && c.voteCount > 0 ? styles.winnerRow : ''}>
+            <td className={styles.symbolCell}>
+              {c.photo ? (
+                <div className={styles.candidatePhotoWrapper}>
+                  <Image 
+                    src={encodeURI(c.photo)} 
+                    alt={c.name} 
+                    width={40} 
+                    height={40} 
+                    className={styles.candidatePhoto} 
+                  />
+                </div>
+              ) : (
+                <span className={styles.emojiSymbol}>{c.symbol}</span>
+              )}
+            </td>
+            <td>
+              <span className={styles.candidateName}>{c.name}</span>
+              {index === 0 && c.voteCount > 0 && <span className={styles.winnerBadge}>Winner</span>}
+            </td>
+            <td>{c.house}</td>
+            <td className={styles.countCol}><strong>{c.voteCount}</strong></td>
+          </tr>
+        ))}
+        {candidates.length === 0 && (
+          <tr>
+            <td colSpan={4} className={styles.noVotes}>No votes recorded</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
 }

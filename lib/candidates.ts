@@ -3,45 +3,57 @@
 import { Candidate } from './types';
 
 export const CANDIDATES: Candidate[] = [
-  // YELLOW HOUSE
-  { id: 'y-c1', name: 'Aisha Patel', house: 'Yellow', role: 'captain', symbol: '🦁' },
-  { id: 'y-c2', name: 'Zaid Khan', house: 'Yellow', role: 'captain', symbol: '🐆' },
-  { id: 'y-vc1', name: 'Marco Silva', house: 'Yellow', role: 'vice_captain', symbol: '⭐' },
-  { id: 'y-vc2', name: 'Nina Gupta', house: 'Yellow', role: 'vice_captain', symbol: '✨' },
 
-  // GREEN HOUSE
-  { id: 'g-c1', name: 'Sakura Yamamoto', house: 'Green', role: 'captain', symbol: '🌲' },
-  { id: 'g-c2', name: 'Liam Wilson', house: 'Green', role: 'captain', symbol: '🌳' },
-  { id: 'g-vc1', name: 'Hassan Ahmed', house: 'Green', role: 'vice_captain', symbol: '🌱' },
-  { id: 'g-vc2', name: 'Elena Rossi', house: 'Green', role: 'vice_captain', symbol: '🌿' },
+  // ─── SCHOOL PREFECT (2 candidates) ───────────────────────────
+  { id: 'sp-1', name: 'Riya Lama',     house: 'Yellow', role: 'school_prefect',      symbol: '🌐', photo: '/candidates/Globe.png' },
+  { id: 'sp-2', name: 'Roshni Tamang', house: 'Green',  role: 'school_prefect',      symbol: '📚', photo: '/candidates/Book.png' },
 
-  // BLUE HOUSE
-  { id: 'b-c1', name: 'Emma White', house: 'Blue', role: 'captain', symbol: '🌊' },
-  { id: 'b-c2', name: 'Rajesh Kumar', house: 'Blue', role: 'captain', symbol: '🐋' },
-  { id: 'b-vc1', name: 'Sophie Martin', house: 'Blue', role: 'vice_captain', symbol: '💧' },
-  { id: 'b-vc2', name: 'Kenji Sato', house: 'Blue', role: 'vice_captain', symbol: '❄️' },
+  // ─── SCHOOL VICE PREFECT (2 candidates) ─────────────────────
+  { id: 'svp-1', name: 'Alisha Dhamala', house: 'Blue',   role: 'school_vice_prefect', symbol: '🧭', photo: '/candidates/Compass Rose.png' },
+  { id: 'svp-2', name: 'Yunisha Sah',    house: 'Red',    role: 'school_vice_prefect', symbol: '⚖️', photo: '/candidates/Justice Scale.png' },
 
-  // RED HOUSE
-  { id: 'r-c1', name: 'Sofia Rodriguez', house: 'Red', role: 'captain', symbol: '🔥' },
-  { id: 'r-c2', name: 'David Okafor', house: 'Red', role: 'captain', symbol: '☄️' },
-  { id: 'r-vc1', name: 'Max Mueller', house: 'Red', role: 'vice_captain', symbol: '⚡' },
-  { id: 'r-vc2', name: 'Isabella Rossi', house: 'Red', role: 'vice_captain', symbol: '❤️' },
+  // ─── RED HOUSE ───────────────────────────────────────────────
+  // Captains (2)
+  { id: 'r-c1',  name: 'Ujwal Acharya',   house: 'Red', role: 'captain',      symbol: '🔥', photo: '/candidates/Fireball.png' },
+  { id: 'r-c2',  name: 'Syaron Thakuri',  house: 'Red', role: 'captain',      symbol: '🦅', photo: '/candidates/Phoenix.png' },
+  // Vice Captains (3)
+  { id: 'r-vc1', name: 'Sadikshya Magar', house: 'Red', role: 'vice_captain', symbol: '❤️', photo: '/candidates/Heart.png' },
+  { id: 'r-vc2', name: 'Phurpi Tamang',   house: 'Red', role: 'vice_captain', symbol: '🐉', photo: '/candidates/Dragon.png' },
+  { id: 'r-vc3', name: 'Yunika Diyali',   house: 'Red', role: 'vice_captain', symbol: '🌹', photo: '/candidates/Rose.png' },
 
-  // SCHOOL WIDE
-  { id: 'sp-1', name: 'Arjun Mehra', house: 'Blue', role: 'school_prefect', symbol: '👑' },
-  { id: 'sp-2', name: 'Zoe Chen', house: 'Yellow', role: 'school_prefect', symbol: '📚' },
-  { id: 'sp-3', name: 'Li Wei', house: 'Green', role: 'school_prefect', symbol: '🎓' },
-  { id: 'sp-4', name: 'Sarah Jenkins', house: 'Red', role: 'school_prefect', symbol: '📝' },
+  // ─── YELLOW HOUSE ────────────────────────────────────────────
+  // Captains (2)
+  { id: 'y-c1',  name: 'Bishanta Tamang', house: 'Yellow', role: 'captain',      symbol: '☀️', photo: '/candidates/Sun.png' },
+  { id: 'y-c2',  name: 'Barsha Thapa',    house: 'Yellow', role: 'captain',      symbol: '⚡', photo: '/candidates/Thunder.png' },
+  // Vice Captains (3)
+  { id: 'y-vc1', name: 'Karina Tamang',   house: 'Yellow', role: 'vice_captain', symbol: '⭐', photo: '/candidates/Star.png' },
+  { id: 'y-vc2', name: 'Nitesh Pandey',   house: 'Yellow', role: 'vice_captain', symbol: '💡', photo: '/candidates/Light Bulb.png' },
+  { id: 'y-vc3', name: 'Kushi Chaudhary', house: 'Yellow', role: 'vice_captain', symbol: '🤝', photo: '/candidates/Handshake.png' },
 
-  { id: 'svp-1', name: 'James Thompson', house: 'Red', role: 'school_vice_prefect', symbol: '🎯' },
-  { id: 'svp-2', name: 'Luna Garcia', house: 'Green', role: 'school_vice_prefect', symbol: '🍀' },
-  { id: 'svp-3', name: 'Rohan Sharma', house: 'Blue', role: 'school_vice_prefect', symbol: '🌟' },
-  { id: 'svp-4', name: 'Anya Sokolov', house: 'Yellow', role: 'school_vice_prefect', symbol: '📜' },
+  // ─── BLUE HOUSE ──────────────────────────────────────────────
+  // Captains (2)
+  { id: 'b-c1',  name: 'Shikha Lama',    house: 'Blue', role: 'captain',      symbol: '🌊', photo: '/candidates/Ocean Wave.png' },
+  { id: 'b-c2',  name: 'Mingmar Tamang', house: 'Blue', role: 'captain',      symbol: '🔱', photo: '/candidates/Trident.png' },
+  // Vice Captains (4)
+  { id: 'b-vc1', name: 'Riya Adhikari',  house: 'Blue', role: 'vice_captain', symbol: '👑', photo: '/candidates/Crown.png' },
+  { id: 'b-vc2', name: 'Deepak Magar',   house: 'Blue', role: 'vice_captain', symbol: '☁️', photo: '/candidates/Clouds.png' },
+  { id: 'b-vc3', name: 'Mira Tamang',    house: 'Blue', role: 'vice_captain', symbol: '🐋', photo: '/candidates/Blue Whale.png' },
+  { id: 'b-vc4', name: 'Lhamu Sikarmi',  house: 'Blue', role: 'vice_captain', symbol: '❄️', photo: '/candidates/Snow Flake.png' },
+
+  // ─── GREEN HOUSE ─────────────────────────────────────────────
+  // Captains (2)
+  { id: 'g-c1',  name: 'Ajaya Lama',     house: 'Green', role: 'captain',      symbol: '🍃', photo: '/candidates/Leaf.png' },
+  { id: 'g-c2',  name: 'Usha Moktan',    house: 'Green', role: 'captain',      symbol: '🌳', photo: '/candidates/Tree.png' },
+  // Vice Captains (4)
+  { id: 'g-vc1', name: 'Riya Dong',      house: 'Green', role: 'vice_captain', symbol: '🍀', photo: '/candidates/Clover.png' },
+  { id: 'g-vc2', name: 'Anuska Khati',   house: 'Green', role: 'vice_captain', symbol: '🌱', photo: '/candidates/Seedling Plant.png' },
+  { id: 'g-vc3', name: 'Nargish Khatun', house: 'Green', role: 'vice_captain', symbol: '🐟', photo: '/candidates/Koi Fish.png' },
+  { id: 'g-vc4', name: 'Shiwani Tamang', house: 'Green', role: 'vice_captain', symbol: '♻️', photo: '/candidates/Recycle.png' },
+
 ];
 
 export const groupCandidatesByHouse = (candidates: Candidate[]) => {
   const houses = ['Yellow', 'Green', 'Blue', 'Red'] as const;
-  // Only group candidates who have house-specific roles
   const houseRoles = ['captain', 'vice_captain'];
   return houses.map(house => ({
     house,
